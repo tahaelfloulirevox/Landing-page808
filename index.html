@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اكتشف هديتك المجانية!</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-width: 400px;
+    text-align: center;
+}
+h1 {
+    color: #333;
+}
+input[type="text"], input[type="email"] {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+button {
+    background: #ff7e5f;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+button:hover {
+    background: #feb47b;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>اكتشف هديتك المجانية اليوم!</h1>
+    <p>ادخل بياناتك لتعرف هديتك</p>
+    <form id="landingForm">
+        <input type="text" name="name" placeholder="الاسم الكامل" required><br>
+        <input type="email" name="email" placeholder="البريد الإلكتروني" required><br>
+        <button type="submit">احصل على هديتك!</button>
+    </form>
+    <p id="thanksMsg" style="display:none;color:green;">شكراً! سيتم التواصل معك قريباً.</p>
+</div>
+
+<script>
+// جمع البيانات
+document.getElementById('landingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email')
+    };
+    // إرسال البيانات إلى Google Sheets أو أي سيرفر آمن
+    fetch('https://your-server-or-google-sheet-endpoint', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(() => {
+        document.getElementById('landingForm').style.display = 'none';
+        document.getElementById('thanksMsg').style.display = 'block';
+    }).catch(err => console.error(err));
+});
+</script>
+</body>
+</html>
